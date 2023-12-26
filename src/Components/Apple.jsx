@@ -4,14 +4,25 @@ import {useState,useEffect} from 'react'
 import style from './Css/Apple.module.css'
 const Apple = () => {
   const [Data,setData] = useState([])
-  useEffect(()=>{
-    fetch('https://newsapi.org/v2/everything?q=apple&from=2023-12-23&to=2023-12-23&sortBy=popularity&apiKey=71046dfb5e3441d2b89ccac00736a420')
-    .then(Data=>Data.json())
-    .then(res =>{
-      setData(res.articles)
-    })
-  },[])
-  console.log(Data)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://newsapi.org/v2/everything?q=apple&from=2023-12-23&to=2023-12-23&sortBy=popularity&apiKey=71046dfb5e3441d2b89ccac00736a420')
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles')
+        }
+        const data = await response.json()
+        setData(data.articles)
+      } catch (error) {
+        console.error(error)
+        // Handle error state here if needed
+      }
+    }
+
+    fetchData()
+  }, [])
+ 
   return (
     <div>
       <NavBar/>

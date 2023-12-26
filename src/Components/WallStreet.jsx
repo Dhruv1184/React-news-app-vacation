@@ -4,13 +4,24 @@ import {useState,useEffect} from 'react'
 import style from './Css/Apple.module.css'
 const WallStreet = () => {
   const [Data,setData] = useState([])
-  useEffect(()=>{
-    fetch('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=71046dfb5e3441d2b89ccac00736a420')
-    .then(Data=>Data.json())
-    .then(res =>{
-      setData(res.articles)
-    })
-  },[])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=71046dfb5e3441d2b89ccac00736a420')
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles')
+        }
+        const data = await response.json()
+        setData(data.articles)
+      } catch (error) {
+        console.error(error)
+        
+      }
+    }
+
+    fetchData()
+  }, [])
   return (
     <div>
     <NavBar/>
