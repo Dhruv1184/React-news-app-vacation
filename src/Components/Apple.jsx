@@ -11,6 +11,7 @@ const Apple = () => {
       setData(res.articles)
     })
   },[])
+  console.log(Data)
   return (
     <div>
       <NavBar/>
