@@ -11,7 +11,7 @@ const TechCrunch = () => {
       setData(res.articles)
     })
   },[])
-  console.log(Data)
+  
   return (
     <div>
     <NavBar/>
